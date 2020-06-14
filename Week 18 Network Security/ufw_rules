@@ -1,0 +1,11 @@
+enable apache fuill: sudo ufw allow 'Apache Full'
+allow dns: sudo ufw allow 53
+allow ssh on subnet only: sudo ufw allow from 10.0.2.0/24 to any port 22
+allow telent on subnet only: sudo ufw allow from 10.0.2.0/24 to any port 23
+allow ftp on subnet only: sudo ufw allow from 10.0.2.0/24 to any port 21
+deny icmp outside of subnet: 
+-A ufw-before-input -p icmp --icmp-type destination-unreachable -j DROP
+-A ufw-before-input -p icmp --icmp-type source-quench -j DROP
+-A ufw-before-input -p icmp --icmp-type time-exceeded -j DROP
+-A ufw-before-input -p icmp --icmp-type parameter-problem -j DROP
+-A ufw-before-input -p icmp --icmp-type echo-request -j DROP
